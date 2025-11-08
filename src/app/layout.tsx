@@ -39,7 +39,7 @@ export default function RootLayout({
         <main className="min-h-screen" role="main">
           {children}
         </main>
-        <Toaster position="top-right" richColors />
+        <Toaster position="top-right" richColors expand closeButton />
       </body>
     </html>
   );

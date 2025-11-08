@@ -54,24 +54,7 @@ export default function ProductPage() {
   const handleAddToCart = () => {
     if (product) {
       const selectedColor = product.product_colors?.[selectedColorIndex];
-      // Add items with quantity instead of looping
-      const { items } = useCart.getState();
-      const existingItem = items.find(
-        (item) => item.product.id === product.id && 
-        item.selectedVariant?.color?.hex_value === selectedColor?.hex_value
-      );
-      
-      if (existingItem) {
-        // Update existing item quantity
-        useCart.getState().updateQuantity(
-          product.id, 
-          existingItem.quantity + quantity, 
-          selectedColor ? { color: selectedColor } : undefined
-        );
-      } else {
-        // Add new item with specified quantity
-        addItem(product, selectedColor, quantity);
-      }
+      addItem(product, selectedColor, quantity);
     }
   };
 
