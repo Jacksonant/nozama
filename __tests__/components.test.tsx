@@ -52,10 +52,6 @@ Object.defineProperty(window, "scrollTo", {
 // Mock fetch
 global.fetch = jest.fn();
 
-// Use actual utility functions instead of mocking
-import { sanitizeText } from "@/lib/sanitize";
-import { formatPrice } from "@/lib/price";
-
 // Mock all ProductPage child components
 jest.mock("@/components/ProductImageCarousel", () => {
   const MockCarousel = () => <div data-testid="image-carousel" />;
