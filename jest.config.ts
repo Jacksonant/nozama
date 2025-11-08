@@ -1,10 +1,6 @@
-import nextJest from 'next/jest'
+import type { Config } from 'jest'
 
-const createJestConfig = nextJest({
-  dir: './',
-})
-
-const customJestConfig = {
+const config: Config = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testEnvironment: 'jest-environment-jsdom',
   moduleNameMapper: {
@@ -14,6 +10,10 @@ const customJestConfig = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
+  preset: 'ts-jest',
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest',
+  },
 }
 
-export default createJestConfig(customJestConfig)
+export default config
