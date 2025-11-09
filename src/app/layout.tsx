@@ -4,6 +4,7 @@ import "./globals.css";
 
 import HeaderWrapper from "@/components/composite/HeaderWrapper";
 import FloatingCartButton from "@/components/atomic/FloatingCartButton";
+import Footer from "@/components/composite/Footer";
 import { Toaster } from "sonner";
 
 const geistSans = Geist({
@@ -40,6 +41,7 @@ export default function RootLayout({
         <main className="min-h-screen" role="main">
           {children}
         </main>
+        <Footer />
         <FloatingCartButton />
         <Toaster position="top-right" richColors expand closeButton />
       </body>
