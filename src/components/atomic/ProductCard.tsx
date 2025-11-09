@@ -51,7 +51,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             <span className="text-sm sm:text-base lg:text-lg font-bold">
               <span className="text-xs sm:text-sm">{product.price_sign || "$"}</span>
               {" "}
-              <span className="text-lg sm:text-xl lg:text-2xl">{formatPrice(product.price)}</span>
+              <span className="text-xl lg:text-2xl">{formatPrice(product.price)}</span>
             </span>
             <Badge className="text-xs capitalize w-fit bg-red-500 hover:bg-red-600 text-white">
               {sanitizeText(product.product_type)}

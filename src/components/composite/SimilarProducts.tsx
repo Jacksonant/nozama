@@ -40,14 +40,14 @@ export default function SimilarProducts({ category, currentProductId }: SimilarP
   return (
     <div>
       <h2 className="text-xl font-bold mb-4">Similar Products</h2>
-      <Carousel className="w-full">
-        <CarouselContent>
+      <Carousel className="w-full overflow-hidden">
+        <CarouselContent className="-ml-2 md:-ml-4">
           {products.map((product) => (
-            <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/4">
+            <CarouselItem key={product.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/4">
               <ProductCard product={product} />
             </CarouselItem>
           ))}
-          <CarouselItem className="md:basis-1/2 lg:basis-1/4">
+          <CarouselItem className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/4">
             <Link href={`/?category=${category}`}>
               <div className="h-full cursor-pointer hover:shadow-md transition-shadow bg-card border rounded-lg">
                 <div className="flex flex-col items-center justify-center h-full p-6 text-center">
@@ -59,8 +59,8 @@ export default function SimilarProducts({ category, currentProductId }: SimilarP
             </Link>
           </CarouselItem>
         </CarouselContent>
-        <CarouselPrevious className="hidden sm:flex" />
-        <CarouselNext className="hidden sm:flex" />
+        <CarouselPrevious className="hidden md:flex -left-4" />
+        <CarouselNext className="hidden md:flex -right-4" />
       </Carousel>
     </div>
   );

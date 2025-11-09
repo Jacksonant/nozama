@@ -14,7 +14,7 @@ import {
 import { useSearchSuggestions } from "@/hooks/useSearchSuggestions";
 import { useTheme } from "@/hooks/useTheme";
 import { useCart } from "@/store/cart";
-import { Filter, Moon, Search, ShoppingCart, Sun } from "lucide-react";
+import { Filter, Moon, Search, ShoppingCart, Sun, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -44,6 +44,12 @@ export default function Header() {
     router.push(`/?${params.toString()}`);
     setShowSuggestions(false);
     setSelectedIndex(-1);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery("");
+    router.push("/");
+    setShowSuggestions(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -82,38 +88,49 @@ export default function Header() {
 
   return (
     <header className="bg-black text-white sticky top-0 z-50" role="banner">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-12 sm:h-16 gap-4">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-12 sm:h-16 gap-2 sm:gap-4">
           <Link
             href="/"
-            className="text-lg sm:text-2xl font-bold text-orange-400 flex-shrink-0"
+            className="text-lg sm:text-2xl font-bold text-white-400 flex-shrink-0"
           >
-            NOZAMA
+            <span className="sm:hidden">NZM</span>
+            <span className="hidden sm:inline">NOZAMA</span>
           </Link>
 
           {/* Mobile Search */}
-          <div className="md:hidden flex-1 max-w-sm">
+          <div className="md:hidden flex-1">
             <div className="relative" ref={searchRef}>
               <form onSubmit={handleSearch}>
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <Input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setShowSuggestions(true);
-                  setSelectedIndex(-1);
-                }}
-                onFocus={() =>
-                  suggestions.length > 0 && setShowSuggestions(true)
-                }
-                onKeyDown={handleKeyDown}
-                className="pl-10 bg-gray-800 border-gray-700 text-white placeholder-gray-400 h-9 text-sm"
-                aria-label="Search products"
-                role="searchbox"
-                aria-autocomplete="list"
-              />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setShowSuggestions(true);
+                    setSelectedIndex(-1);
+                  }}
+                  onFocus={() =>
+                    suggestions.length > 0 && setShowSuggestions(true)
+                  }
+                  onKeyDown={handleKeyDown}
+                  className="pl-10 pr-10 bg-gray-800 border-gray-700 text-white placeholder-gray-400 h-9 text-sm"
+                  aria-label="Search products"
+                  role="searchbox"
+                  aria-autocomplete="list"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={clearSearch}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                    aria-label="Clear search"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
               </form>
               {showSuggestions && suggestions.length > 0 && (
                 <div className="absolute top-full left-0 right-0 bg-background border border-border rounded-md shadow-lg z-50 max-h-64 overflow-y-auto">
@@ -122,12 +139,14 @@ export default function Header() {
                       key={index}
                       type="button"
                       onClick={() => handleSearch(undefined, suggestion)}
-                      className={`w-full text-left px-4 py-2 hover:bg-muted text-foreground flex items-center gap-2 ${
+                      className={`w-full text-left px-2 py-2 hover:bg-muted text-foreground flex items-center gap-2 text-sm truncate ${
                         index === selectedIndex ? "bg-muted" : ""
                       }`}
                     >
-                      <Search className="w-4 h-4 text-muted-foreground" />
-                      {suggestion}
+                      <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                      <span className="truncate text-xs md:text-sm">
+                        {suggestion}
+                      </span>
                     </button>
                   ))}
                 </div>
@@ -136,7 +155,7 @@ export default function Header() {
           </div>
 
           {/* Desktop Search */}
-          <div className="hidden md:flex items-center gap-2 flex-1 max-w-2xl">
+          <div className="hidden md:flex items-center gap-2 flex-1 max-w-4xl">
             <form
               onSubmit={handleSearch}
               className="flex items-center gap-2 flex-1"
@@ -159,6 +178,17 @@ export default function Header() {
                   className="pl-10 bg-gray-800 border-gray-700 text-white placeholder-gray-400 h-9"
                 />
 
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={clearSearch}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                    aria-label="Clear search"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                )}
+
                 {/* Suggestions Dropdown */}
                 {showSuggestions && suggestions.length > 0 && (
                   <div className="absolute top-full left-0 right-0 bg-background border border-border rounded-md shadow-lg z-50 max-h-64 overflow-y-auto">
@@ -171,8 +201,10 @@ export default function Header() {
                           index === selectedIndex ? "bg-muted" : ""
                         }`}
                       >
-                        <Search className="w-4 h-4 text-muted-foreground" />
-                        {suggestion}
+                        <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                        <span className="truncate text-xs md:text-sm">
+                          {suggestion}
+                        </span>
                       </button>
                     ))}
                   </div>
@@ -182,7 +214,7 @@ export default function Header() {
           </div>
 
           <nav
-            className="flex items-center space-x-1 sm:space-x-2"
+            className="flex items-center sm:space-x-2 flex-shrink-0"
             role="navigation"
             aria-label="Main navigation"
           >
@@ -208,9 +240,11 @@ export default function Header() {
                 <div className="p-4">
                   <FilterSidebar
                     onClose={() =>
-                      (document
-                        .querySelector('[data-state="open"] button') as HTMLButtonElement)
-                        ?.click()
+                      (
+                        document.querySelector(
+                          '[data-state="open"] button'
+                        ) as HTMLButtonElement
+                      )?.click()
                     }
                   />
                 </div>
@@ -235,7 +269,7 @@ export default function Header() {
               variant="ghost"
               size="sm"
               asChild
-              className="relative text-white hover:text-white hover:bg-gray-800 h-9 w-9 p-0"
+              className="relative text-white hover:text-white hover:bg-gray-800 h-9 w-9 p-0 hidden md:flex"
             >
               <Link href="/cart" aria-label={`Cart with ${itemCount} items`}>
                 <ShoppingCart className="w-4 h-4" />

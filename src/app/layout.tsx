@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import HeaderWrapper from "@/components/composite/HeaderWrapper";
+import FloatingCartButton from "@/components/atomic/FloatingCartButton";
 import { Toaster } from "sonner";
 
 const geistSans = Geist({
@@ -39,6 +40,7 @@ export default function RootLayout({
         <main className="min-h-screen" role="main">
           {children}
         </main>
+        <FloatingCartButton />
         <Toaster position="top-right" richColors expand closeButton />
       </body>
     </html>
