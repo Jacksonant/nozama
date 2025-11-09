@@ -1,5 +1,5 @@
 import ProductPage from "@/app/product/[id]/page";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/atomic/ProductCard";
 import { useProduct } from "@/hooks/useProduct";
 import { Product } from "@/lib/types";
 import "@testing-library/jest-dom";
@@ -53,37 +53,37 @@ Object.defineProperty(window, "scrollTo", {
 global.fetch = jest.fn();
 
 // Mock all ProductPage child components
-jest.mock("@/components/ProductImageCarousel", () => {
+jest.mock("@/components/atomic/ProductImageCarousel", () => {
   const MockCarousel = () => <div data-testid="image-carousel" />;
   MockCarousel.displayName = "MockCarousel";
   return MockCarousel;
 });
 
-jest.mock("@/components/ProductInfo", () => {
+jest.mock("@/components/atomic/ProductInfo", () => {
   const MockInfo = () => <div data-testid="product-info" />;
   MockInfo.displayName = "MockInfo";
   return MockInfo;
 });
 
-jest.mock("@/components/CustomerReviews", () => {
+jest.mock("@/components/atomic/CustomerReviews", () => {
   const MockReviews = () => <div data-testid="customer-reviews" />;
   MockReviews.displayName = "MockReviews";
   return MockReviews;
 });
 
-jest.mock("@/components/ProductSpecifications", () => {
+jest.mock("@/components/atomic/ProductSpecifications", () => {
   const MockSpecs = () => <div data-testid="product-specs" />;
   MockSpecs.displayName = "MockSpecs";
   return MockSpecs;
 });
 
-jest.mock("@/components/SimilarProducts", () => {
+jest.mock("@/components/composite/SimilarProducts", () => {
   const MockSimilar = () => <div data-testid="similar-products" />;
   MockSimilar.displayName = "MockSimilar";
   return MockSimilar;
 });
 
-jest.mock("@/components/StoreProducts", () => {
+jest.mock("@/components/composite/StoreProducts", () => {
   const MockStore = () => <div data-testid="store-products" />;
   MockStore.displayName = "MockStore";
   return MockStore;

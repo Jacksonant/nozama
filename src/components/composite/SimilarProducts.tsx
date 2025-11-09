@@ -2,24 +2,24 @@
 
 
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import ProductCard from "@/components/ProductCard";
-import { useStoreProducts } from "@/hooks/useStoreProducts";
+import ProductCard from "@/components/atomic/ProductCard";
+import { useSimilarProducts } from "@/hooks/useSimilarProducts";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { sanitizeText } from "@/lib/sanitize";
 
-interface StoreProductsProps {
-  brand: string;
+interface SimilarProductsProps {
+  category: string;
   currentProductId: number;
 }
 
-export default function StoreProducts({ brand, currentProductId }: StoreProductsProps) {
-  const { products, loading } = useStoreProducts(brand, currentProductId);
+export default function SimilarProducts({ category, currentProductId }: SimilarProductsProps) {
+  const { products, loading } = useSimilarProducts(category, currentProductId);
 
   if (loading) {
     return (
       <div>
-        <h2 className="text-xl font-bold mb-4">More from {sanitizeText(brand)}</h2>
+        <h2 className="text-xl font-bold mb-4">Similar Products</h2>
         <Carousel className="w-full">
           <CarouselContent>
             {[...Array(4)].map((_, i) => (
@@ -28,8 +28,8 @@ export default function StoreProducts({ brand, currentProductId }: StoreProducts
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="hidden sm:flex" />
+          <CarouselNext className="hidden sm:flex" />
         </Carousel>
       </div>
     );
@@ -39,7 +39,7 @@ export default function StoreProducts({ brand, currentProductId }: StoreProducts
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">More from {sanitizeText(brand)}</h2>
+      <h2 className="text-xl font-bold mb-4">Similar Products</h2>
       <Carousel className="w-full">
         <CarouselContent>
           {products.map((product) => (
@@ -48,19 +48,19 @@ export default function StoreProducts({ brand, currentProductId }: StoreProducts
             </CarouselItem>
           ))}
           <CarouselItem className="md:basis-1/2 lg:basis-1/4">
-            <Link href={`/?brand=${brand}`}>
+            <Link href={`/?category=${category}`}>
               <div className="h-full cursor-pointer hover:shadow-md transition-shadow bg-card border rounded-lg">
                 <div className="flex flex-col items-center justify-center h-full p-6 text-center">
                   <ArrowRight className="w-8 h-8 mb-2 text-primary" />
                   <h3 className="font-medium mb-1">View More</h3>
-                  <p className="text-sm text-muted-foreground">More from {sanitizeText(brand)}</p>
+                  <p className="text-sm text-muted-foreground">{sanitizeText(category)} Products</p>
                 </div>
               </div>
             </Link>
           </CarouselItem>
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="hidden sm:flex" />
+        <CarouselNext className="hidden sm:flex" />
       </Carousel>
     </div>
   );

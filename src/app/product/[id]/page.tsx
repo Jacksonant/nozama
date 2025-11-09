@@ -1,11 +1,11 @@
 "use client";
 
-import CustomerReviews from "@/components/CustomerReviews";
-import ProductImageCarousel from "@/components/ProductImageCarousel";
-import ProductInfo from "@/components/ProductInfo";
-import ProductSpecifications from "@/components/ProductSpecifications";
-import SimilarProducts from "@/components/SimilarProducts";
-import StoreProducts from "@/components/StoreProducts";
+import CustomerReviews from "@/components/atomic/CustomerReviews";
+import ProductImageCarousel from "@/components/atomic/ProductImageCarousel";
+import ProductInfo from "@/components/atomic/ProductInfo";
+import ProductSpecifications from "@/components/atomic/ProductSpecifications";
+import SimilarProducts from "@/components/composite/SimilarProducts";
+import StoreProducts from "@/components/composite/StoreProducts";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";

@@ -1,7 +1,7 @@
 "use client";
 
-import FilterSidebar from "@/components/FilterSidebar";
-import ProductCard from "@/components/ProductCard";
+import FilterSidebar from "@/components/composite/FilterSidebar";
+import ProductCard from "@/components/atomic/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";

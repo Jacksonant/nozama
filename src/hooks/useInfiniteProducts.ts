@@ -22,6 +22,7 @@ export function useInfiniteProducts(filters: FilterState): UseInfiniteProductsRe
 
   const buildQueryString = useCallback((currentPage: number) => {
     const params = new URLSearchParams();
+    // TODO: Do not hardcode here
     if (filters.search) params.set('search', filters.search);
     if (filters.category) params.set('category', filters.category);
     if (filters.minPrice > 0) params.set('minPrice', filters.minPrice.toString());
